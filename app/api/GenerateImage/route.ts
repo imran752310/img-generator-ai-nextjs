@@ -1,6 +1,10 @@
-    // app/api/generate-image/route.ts
+
 import { NextResponse } from 'next/server';
 import axios from 'axios';
+
+type ImageResponse = {
+  url: string;
+};
 
 export async function POST(req: Request) {
   try {
@@ -11,7 +15,7 @@ export async function POST(req: Request) {
       return NextResponse.json({ message: 'Prompt is required' }, { status: 400 });
     }
 
-    const response = await axios.request({
+    const response = await axios.request<ImageResponse>({
       method: 'POST',
       url: 'https://ai-text-to-image-generator-api.p.rapidapi.com/realistic',
       headers: {
@@ -25,8 +29,12 @@ export async function POST(req: Request) {
     });
 
     return NextResponse.json({ url: response.data.url }, { status: 200 });
-  } catch (error: any) {
-    console.error('Image generation error:', error.message);
+  } catch (error: unknown) {
+    if (error instanceof Error) {
+      console.error('Image generation error:', error.message);
+    } else {
+      console.error('Unknown error during image generation:', error);
+    }
     return NextResponse.json({ message: 'Image generation failed' }, { status: 500 });
   }
 }
