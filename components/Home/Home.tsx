@@ -1,7 +1,7 @@
 "use client"
 import React, { useEffect } from 'react'
 import Hero from './Hero/Hero'
-import RecentImage from './Recentimage/RecentImage'
+import RecentImage from './RecentImage/RecentImage'
 import About from './About/About'
 import Price from './Price/Price'
 import Review from './Review/Review'

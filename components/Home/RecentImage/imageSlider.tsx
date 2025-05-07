@@ -24,7 +24,7 @@ const responsive = {
     }
   };
 
-const ImageSlider = () => {
+const ImageSliderF = () => {
   return  <Carousel 
   responsive={responsive} 
   infinite={true} 
@@ -50,4 +50,4 @@ const ImageSlider = () => {
   
 }
 
-export default ImageSlider
+export default ImageSliderF
