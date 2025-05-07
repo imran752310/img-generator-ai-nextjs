@@ -11,8 +11,8 @@ const About = () => {
         
         src="/images/about.jpg"
         alt="About"
-        width={500}
-        height={400}
+        width={400}
+        height={300}
         className="rounded-lg "
         />
     </div>

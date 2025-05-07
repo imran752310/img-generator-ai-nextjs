@@ -25,7 +25,7 @@ const bg_style = navBg ? "bg-gray-900 shadow-md" : "";
 
   return (
     <div className={`flex ${bg_style} items-center justify-between h-[12vh] w-full mx-auto transition-all duration-200`}>
-        <h1 className='text-3xl text-white font-bold ml-8 md:ml-16'>IMGIAI</h1>
+        <h1 className='text-4xl text-white font-bold ml-8 md:ml-16'><span className='text-yellow-500'>IMAGE</span> AI</h1>
         <div className='md:flex items-center space-x-10 hidden'>
             {/* NavLik  */}
             {
