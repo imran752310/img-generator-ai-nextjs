@@ -1,6 +1,10 @@
 "use client"
+import { Button } from '@/components/ui/button'
+import axios from 'axios';
+import { Loader  } from 'lucide-react';
+import React, { useState } from 'react'
+import { toast } from 'sonner';
 import Image from 'next/image';
-import { useState } from 'react';
 const Hero = () => {
 
 const [promt, setPrompt] = useState("");
@@ -8,34 +12,25 @@ const [image, setImage] = useState("");
 const [loading, setLoading] = useState(false);
 
 const handleImageGeneration = async () => {
-    setLoading(true)
-    const options = {
-        method: 'POST',
-        url: 'https://ai-text-to-image-generator-api.p.rapidapi.com/realistic',
-        headers: {
-          'x-rapidapi-key': 'fbdef413d1mshf98d26c61d6fc37p1c04f6jsncc392dc8d696',
-          'x-rapidapi-host': 'ai-text-to-image-generator-api.p.rapidapi.com',
-          'Content-Type': 'application/json'
-        },
-        data: {
-          inputs: promt,
-        }
-    };
+    setLoading(true);
+  
     try {
-        const response = await axios.request(options);
-        setImage(response.data.url);
-        toast.success('Image generated successfully');
+      const response = await axios.post('/api/generate-image', {
+        prompt: promt,
+      });
+  
+      setImage(response.data.url);
+      toast.success('Image generated successfully');
+    } catch (error: unknown) {
+      if (axios.isAxiosError(error) && error.response) {
+        toast.error(error.response.data.message || 'Image generation failed');
+      } else {
+        toast.error('An error occurred');
+      }
+    } finally {
+      setLoading(false);
     }
-    catch (error:unknown) {
-        if(axios.isAxiosError(error) && error.response){
-            toast.error(error.response.data.message);
-        }else{
-            toast.error('An error occurred');
-        }
-    }finally{
-        setLoading(false);
-    }
-};
+  };
 
 const handleDownloadImage = ()=>{
     const link = document.createElement('a');
